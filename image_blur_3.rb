@@ -2,8 +2,6 @@
 class Image
   def initialize(array)
     @array = array
-
-
   end
 
   def output_image
@@ -14,14 +12,6 @@ class Image
       puts "\n"    
     end 
   end
-
-  def blur(distance) 
-    for i in 0..distance do
-      blurred_image
-    end
-    return output_image
-  end
-
 
   def blurred_image
     ones = Array.new
@@ -40,19 +30,28 @@ class Image
       @array[row][col-1]=1 if col-1 >= 0         
       @array[row][col+1]=1 if col+1 < num_cols   
     end
-    return output_image
+    return self
+  end
+
+  def blur(distance)
+    distance.times do
+      blurred_image
+    end
+    return self
   end
 end
 
 image = Image.new([
   [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
   [0, 1, 0, 0],
-  [0, 0, 0, 1],
+  [0, 0, 0, 0],
   [0, 0, 0, 0]
 ])
 
 image.output_image
 p "---------------"
-image.blurred_image
+image.blurred_image.output_image
 p "---------------"
-image.blur(2)
+image.blur(2).output_image
